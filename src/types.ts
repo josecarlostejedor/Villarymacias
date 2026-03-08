@@ -36,7 +36,7 @@ export const ROUTES: Route[] = [
   {
     id: 1,
     name: "Recorrido 1",
-    mapUrl: "https://raw.githubusercontent.com/josecarlostejedor/VillarymaciasOrientacion/main/Recorrido1VM.jpg",
+    mapUrl: "https://raw.githubusercontent.com/josecarlostejedor/Villarymacias/main/Recorrido1VM.jpg",
     balizas: [
       { id: 1, code: "Pizarra Santibañez", description: "Baliza 1" },
       { id: 2, code: "1395-007", description: "Baliza 2" },
@@ -51,7 +51,7 @@ export const ROUTES: Route[] = [
   {
     id: 2,
     name: "Recorrido 2",
-    mapUrl: "https://raw.githubusercontent.com/josecarlostejedor/VillarymaciasOrientacion/main/Recorrido2VM.jpg",
+    mapUrl: "https://raw.githubusercontent.com/josecarlostejedor/Villarymacias/main/Recorrido2VM.jpg",
     balizas: [
       { id: 1, code: "Pizarra Santibañez", description: "Baliza 1" },
       { id: 2, code: "1395-031", description: "Baliza 2" },
@@ -66,7 +66,7 @@ export const ROUTES: Route[] = [
   {
     id: 3,
     name: "Recorrido 3",
-    mapUrl: "https://raw.githubusercontent.com/josecarlostejedor/VillarymaciasOrientacion/main/Recorrido3VM.jpg",
+    mapUrl: "https://raw.githubusercontent.com/josecarlostejedor/Villarymacias/main/Recorrido3VM.jpg",
     balizas: [
       { id: 1, code: "1395-067", description: "Baliza 1" },
       { id: 2, code: "Haya", description: "Baliza 2" },
@@ -81,7 +81,7 @@ export const ROUTES: Route[] = [
   {
     id: 4,
     name: "Recorrido 4",
-    mapUrl: "https://raw.githubusercontent.com/josecarlostejedor/VillarymaciasOrientacion/main/Recorrido4VM.jpg",
+    mapUrl: "https://raw.githubusercontent.com/josecarlostejedor/Villarymacias/main/Recorrido4VM.jpg",
     balizas: [
       { id: 1, code: "1395-054", description: "Baliza 1" },
       { id: 2, code: "1395-041", description: "Baliza 2" },
@@ -96,7 +96,7 @@ export const ROUTES: Route[] = [
   {
     id: 5,
     name: "Recorrido 5",
-    mapUrl: "https://raw.githubusercontent.com/josecarlostejedor/VillarymaciasOrientacion/main/Recorrrido5VM.jpg",
+    mapUrl: "https://raw.githubusercontent.com/josecarlostejedor/Villarymacias/main/Recorrrido5VM.jpg",
     balizas: [
       { id: 1, code: "Pizarra Santibañez", description: "Baliza 1" },
       { id: 2, code: "1395-067", description: "Baliza 2" },
@@ -112,7 +112,7 @@ export const ROUTES: Route[] = [
   {
     id: 6,
     name: "Recorrido 6",
-    mapUrl: "https://raw.githubusercontent.com/josecarlostejedor/VillarymaciasOrientacion/main/Recorrido6VM.jpg",
+    mapUrl: "https://raw.githubusercontent.com/josecarlostejedor/Villarymacias/main/Recorrido6VM.jpg",
     requiresPassword: true,
     balizas: [
       { id: 1, code: "Pizarra Santibañez", description: "Baliza 1" },
