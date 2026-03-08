@@ -44,7 +44,7 @@ export default function Home({ onSubmit }: Props) {
         <div className="absolute -inset-1 bg-emerald-500/20 rounded-[2.5rem] blur-xl opacity-50 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
         <div className="relative bg-white rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white aspect-[4/3]">
           <img
-            src="https://raw.githubusercontent.com/josecarlostejedor/VillarymaciasOrientacion/main/recorridoorienta.jpg"
+            src="https://raw.githubusercontent.com/josecarlostejedor/Villarymacias/main/recorridoorienta.jpg"
             alt="Localización"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
