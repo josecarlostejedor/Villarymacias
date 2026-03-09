@@ -1,5 +1,96 @@
 import express from "express";
-import { ROUTES } from "../src/types";
+
+// Self-contained ROUTES data to avoid cross-directory import issues in Vercel
+const ROUTES = [
+  {
+    id: 1,
+    name: "Recorrido 1",
+    balizas: [
+      { id: 1, code: "Pizarra Santibañez" },
+      { id: 2, code: "1395-007" },
+      { id: 3, code: "1395-043" },
+      { id: 4, code: "1395-031" },
+      { id: 5, code: "1395-022" },
+      { id: 6, code: "1395-013" },
+      { id: 7, code: "Jardín Geobotánico" },
+      { id: 8, code: "Haya" },
+    ]
+  },
+  {
+    id: 2,
+    name: "Recorrido 2",
+    balizas: [
+      { id: 1, code: "Pizarra Santibañez" },
+      { id: 2, code: "1395-031" },
+      { id: 3, code: "1395-026" },
+      { id: 4, code: "1395-001" },
+      { id: 5, code: "1395-021" },
+      { id: 6, code: "Magnolio" },
+      { id: 7, code: "1395-055" },
+      { id: 8, code: "Alba & Andrea" },
+    ]
+  },
+  {
+    id: 3,
+    name: "Recorrido 3",
+    balizas: [
+      { id: 1, code: "1395-067" },
+      { id: 2, code: "Haya" },
+      { id: 3, code: "1395-041" },
+      { id: 4, code: "1395-018" },
+      { id: 5, code: "1395-013" },
+      { id: 6, code: "1395-022" },
+      { id: 7, code: "1395-044" },
+      { id: 8, code: "Paseo del Brezo" },
+    ]
+  },
+  {
+    id: 4,
+    name: "Recorrido 4",
+    balizas: [
+      { id: 1, code: "1395-054" },
+      { id: 2, code: "1395-041" },
+      { id: 3, code: "1395-022" },
+      { id: 4, code: "Jardín Geobotánico" },
+      { id: 5, code: "1395-021" },
+      { id: 6, code: "1395-044" },
+      { id: 7, code: "Ligustrum Variegata" },
+      { id: 8, code: "Paseo del Brezo" },
+    ]
+  },
+  {
+    id: 5,
+    name: "Recorrido 5",
+    balizas: [
+      { id: 1, code: "Pizarra Santibañez" },
+      { id: 2, code: "1395-067" },
+      { id: 3, code: "Haya" },
+      { id: 4, code: "1395-041" },
+      { id: 5, code: "1395-031" },
+      { id: 6, code: "1395-083" },
+      { id: 7, code: "1395-021" },
+      { id: 8, code: "1395-044" },
+      { id: 9, code: "Alba & Andrea" },
+    ]
+  },
+  {
+    id: 6,
+    name: "Recorrido 6",
+    balizas: [
+      { id: 1, code: "Pizarra Santibañez" },
+      { id: 2, code: "1395-041" },
+      { id: 3, code: "Haya" },
+      { id: 4, code: "1395-031" },
+      { id: 5, code: "1395-022" },
+      { id: 6, code: "1395-083" },
+      { id: 7, code: "1395-013" },
+      { id: 8, code: "1395-001" },
+      { id: 9, code: "1395-021" },
+      { id: 10, code: "1395-044" },
+      { id: 11, code: "Paseo del Brezo" },
+    ]
+  }
+];
 
 const app = express();
 app.use(express.json());
@@ -55,13 +146,15 @@ app.post("/api/results", async (req, res) => {
       
       try {
         // We use a simple fetch. Node 18+ has it globally.
-        await fetch(googleSheetsUrl, {
+        const sheetResponse = await fetch(googleSheetsUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(sheetData),
           redirect: 'follow'
         });
-        console.log("[SHEETS] Success");
+        
+        const resultText = await sheetResponse.text();
+        console.log("[SHEETS] Success:", resultText);
       } catch (sheetError: any) {
         console.error("[SHEETS] Error sending to Google:", sheetError.message);
       }
