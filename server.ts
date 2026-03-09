@@ -91,57 +91,47 @@ async function startServer() {
       }
 
       // Send to Google Sheets if URL is configured
-      const googleSheetsUrl = process.env.GOOGLE_SHEETS_URL;
+      const googleSheetsUrl = process.env.GOOGLE_SHEETS_URL || process.env.VITE_GOOGLE_SHEETS_URL;
+      
       if (googleSheetsUrl) {
         try {
+          // Aseguramos que routeId sea número para la búsqueda
+          const route = ROUTES.find(r => Number(r.id) === Number(routeId));
           const totalBalizas = route ? route.balizas.length : 0;
           const fallos = totalBalizas - correctBeacons;
 
           const sheetData = {
-            nombre: name,
-            apellidos: surname,
-            edad: age,
-            curso: course,
-            grupo: group,
+            nombre: name || "Sin nombre",
+            apellidos: surname || "Sin apellidos",
+            edad: age || 0,
+            curso: course || "N/A",
+            grupo: group || "N/A",
             recorrido: route?.name || `Recorrido ${routeId}`,
-            tiempo: totalTime,
-            puntuacion: correctBeacons,
-            borg: borgScale,
+            tiempo: totalTime || 0,
+            puntuacion: correctBeacons || 0,
+            borg: borgScale || 0,
             resultado: `${correctBeacons} aciertos, ${fallos} fallos`
           };
 
-          // Protocolo Vercel-Sheets: Limpieza y validación de URL
           const targetUrl = googleSheetsUrl.trim();
+          console.log(`[SHEETS] Intentando envío a: ${targetUrl.substring(0, 45)}...`);
           
-          console.log("Protocolo Vercel-Sheets: Enviando datos a:", targetUrl.substring(0, 40) + "...");
-
-          // Usamos un controlador de tiempo para no bloquear el servidor si Google Sheets es lento
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 8000);
-
-          try {
-            const sheetResponse = await fetch(targetUrl, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(sheetData),
-              signal: controller.signal
-            });
-            
-            clearTimeout(timeoutId);
-            const resultText = await sheetResponse.text();
-            console.log("Protocolo Vercel-Sheets: Éxito:", resultText);
-          } catch (fetchError: any) {
-            if (fetchError.name === 'AbortError') {
-              console.error("Protocolo Vercel-Sheets: Timeout (Google Sheets tardó demasiado)");
-            } else {
-              throw fetchError;
-            }
-          }
-        } catch (sheetError) {
-          console.error("Error sending to Google Sheets:", sheetError);
+          // Usamos text/plain para máxima compatibilidad con el redirect de Google Apps Script
+          const sheetResponse = await fetch(targetUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(sheetData),
+            redirect: 'follow'
+          });
+          
+          const resultText = await sheetResponse.text();
+          console.log(`[SHEETS] Respuesta de Google (${sheetResponse.status}):`, resultText);
+          
+        } catch (sheetError: any) {
+          console.error("[SHEETS] Error crítico en el envío:", sheetError.message);
         }
+      } else {
+        console.warn("[SHEETS] Advertencia: No se encontró la variable GOOGLE_SHEETS_URL");
       }
 
       res.json({ success: true, id: lastInsertRowid });
