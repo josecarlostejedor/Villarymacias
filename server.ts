@@ -90,21 +90,10 @@ async function startServer() {
         });
       }
 
-      // Send to Google Sheets if webhook URL is configured
+      // Send to Google Sheets if URL is configured
       const googleSheetsUrl = process.env.GOOGLE_SHEETS_URL;
       if (googleSheetsUrl) {
         try {
-          const route = ROUTES.find(r => r.id === routeId);
-          let correctBeacons = 0;
-          if (route) {
-            responses.forEach((resp: { balizaId: number; code: string }) => {
-              const baliza = route.balizas.find(b => b.id === resp.balizaId);
-              if (baliza && baliza.code.toLowerCase().trim() === resp.code.toLowerCase().trim()) {
-                correctBeacons++;
-              }
-            });
-          }
-
           const totalBalizas = route ? route.balizas.length : 0;
           const fallos = totalBalizas - correctBeacons;
 
@@ -121,14 +110,19 @@ async function startServer() {
             resultado: `${correctBeacons} aciertos, ${fallos} fallos`
           };
 
-          // Use fetch to send data to Google Apps Script
-          fetch(googleSheetsUrl, {
+          // CRITICAL: We MUST await the fetch on Vercel/Serverless environments
+          // otherwise the process is killed before the request completes.
+          const sheetResponse = await fetch(googleSheetsUrl, {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(sheetData)
-          }).catch(err => console.error("Error sending to Google Sheets:", err));
+          });
           
+          if (!sheetResponse.ok) {
+            console.error(`Google Sheets error: ${sheetResponse.statusText}`);
+          }
         } catch (sheetError) {
-          console.error("Error preparing Google Sheets data:", sheetError);
+          console.error("Error sending to Google Sheets:", sheetError);
         }
       }
 
