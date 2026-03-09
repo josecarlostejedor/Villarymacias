@@ -2,7 +2,7 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import path from "path";
 import { fileURLToPath } from "url";
-import { ROUTES } from "./src/types.js";
+import { ROUTES } from "./src/types";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -91,33 +91,39 @@ async function startServer() {
       }
 
       // Send to Google Sheets if webhook URL is configured
-      const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
-      if (webhookUrl) {
+      const googleSheetsUrl = process.env.GOOGLE_SHEETS_URL;
+      if (googleSheetsUrl) {
         try {
-          const now = new Date();
-          const dateStr = now.toLocaleDateString('es-ES');
-          const timeStr = now.toLocaleTimeString('es-ES');
-          
+          const route = ROUTES.find(r => r.id === routeId);
+          let correctBeacons = 0;
+          if (route) {
+            responses.forEach((resp: { balizaId: number; code: string }) => {
+              const baliza = route.balizas.find(b => b.id === resp.balizaId);
+              if (baliza && baliza.code.toLowerCase().trim() === resp.code.toLowerCase().trim()) {
+                correctBeacons++;
+              }
+            });
+          }
+
+          const totalBalizas = route ? route.balizas.length : 0;
+          const fallos = totalBalizas - correctBeacons;
+
           const sheetData = {
-            fecha: dateStr,
-            hora: timeStr,
             nombre: name,
             apellidos: surname,
+            edad: age,
             curso: course,
             grupo: group,
-            edad: age,
-            puntuacionTotal: correctBeacons,
-            tiempoTotal: totalTime,
-            escalaBorg: borgScale,
-            balizasCorrectas: correctBeacons
+            recorrido: route?.name || `Recorrido ${routeId}`,
+            tiempo: totalTime,
+            puntuacion: correctBeacons,
+            borg: borgScale,
+            resultado: `${correctBeacons} aciertos, ${fallos} fallos`
           };
 
           // Use fetch to send data to Google Apps Script
-          // We don't await this to not block the response to the user, 
-          // but we log errors.
-          fetch(webhookUrl, {
+          fetch(googleSheetsUrl, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(sheetData)
           }).catch(err => console.error("Error sending to Google Sheets:", err));
           
