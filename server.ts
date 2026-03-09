@@ -110,16 +110,27 @@ async function startServer() {
             resultado: `${correctBeacons} aciertos, ${fallos} fallos`
           };
 
-          // CRITICAL: We MUST await the fetch on Vercel/Serverless environments
-          // otherwise the process is killed before the request completes.
+          // LOG for debugging in Vercel
+          console.log("Protocolo Vercel-Sheets: Iniciando envío...", { 
+            url: googleSheetsUrl.substring(0, 30) + "...",
+            estudiante: `${name} ${surname}` 
+          });
+
+          // CRITICAL: We use text/plain to avoid CORS preflight issues with Google Apps Script
+          // while still sending a valid JSON string that JSON.parse() can read.
           const sheetResponse = await fetch(googleSheetsUrl, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8',
+            },
             body: JSON.stringify(sheetData)
           });
           
+          const responseText = await sheetResponse.text();
+          console.log("Protocolo Vercel-Sheets: Respuesta de Google:", responseText);
+          
           if (!sheetResponse.ok) {
-            console.error(`Google Sheets error: ${sheetResponse.statusText}`);
+            console.error(`Error en el puente: ${sheetResponse.status} ${sheetResponse.statusText}`);
           }
         } catch (sheetError) {
           console.error("Error sending to Google Sheets:", sheetError);
