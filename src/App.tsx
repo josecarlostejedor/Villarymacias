@@ -44,7 +44,7 @@ export default function App() {
   const [borgScale, setBorgScale] = useState<number>(5);
   const [raceResult, setRaceResult] = useState<RaceResult | null>(null);
 
-  const timerRef = useRef<any>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const reportRef = useRef<HTMLDivElement>(null);
 
   // Timer logic
@@ -633,7 +633,7 @@ export default function App() {
             <div className="space-y-10">
               <div className="flex justify-between items-start border-b-2 border-stone-100 pb-8">
                 <div>
-                  <h1 className="text-3xl font-black text-stone-800 tracking-tight">Recorridos del Orientación en Huerta Otea</h1>
+                  <h1 className="text-3xl font-black text-stone-800 tracking-tight">Recorridos de Orientación en Huerta Otea</h1>
                   <p className="text-emerald-600 font-bold text-sm uppercase tracking-wider mt-1">Departamento de E.F. IES Lucía de Medrano</p>
                   <p className="text-stone-400 text-[10px] italic mt-2">(App creada por Jose Carlos Tejedor)</p>
                 </div>
