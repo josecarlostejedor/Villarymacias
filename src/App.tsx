@@ -10,11 +10,9 @@ import {
   Timer, 
   Map as MapIcon, 
   CheckCircle2, 
-  XCircle, 
   ChevronRight, 
   ChevronLeft, 
   Play, 
-  Flag, 
   FileText, 
   User,
   Activity
@@ -250,7 +248,7 @@ export default function App() {
       
       let summaryY = y + 10;
       summaryY = drawDataField("Recorrido", raceResult.routeName, col2X, summaryY);
-      summaryY = drawDataField("Tiempo Total", formatTime(raceResult.totalTime), col2X, summaryY);
+      summaryY = drawDataField("Tiempo Total", formatTimeHMS(raceResult.totalTime), col2X, summaryY);
       
       pdf.setFontSize(8);
       pdf.setTextColor(150, 150, 150);
@@ -683,7 +681,7 @@ export default function App() {
                     </div>
                     <div>
                       <p className="text-[9px] font-black text-stone-400 uppercase tracking-tighter">Tiempo Total</p>
-                      <p className="text-lg font-bold text-emerald-600 leading-tight">{formatTime(raceResult.totalTime)}</p>
+                      <p className="text-lg font-bold text-emerald-600 leading-tight">{formatTimeHMS(raceResult.totalTime)}</p>
                     </div>
                     <div>
                       <p className="text-[9px] font-black text-stone-400 uppercase tracking-tighter">Puntuación</p>
