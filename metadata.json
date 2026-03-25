@@ -1,0 +1,5 @@
+{
+  "name": "Orientación IES LUCÍA DE MEDRANO",
+  "description": "Aplicación de carreras de orientación para el IES LUCÍA DE MEDRANO con cronómetro, validación de balizas y reportes PDF.",
+  "requestFramePermissions": []
+}
