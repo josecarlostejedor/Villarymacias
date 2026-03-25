@@ -20,9 +20,9 @@ import {
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { jsPDF } from 'jspdf';
 
-import { ROUTES, COURSES, GROUPS, Route } from './constants';
-import { UserData, RaceResult, BalizaResult } from './types';
-import { cn, normalizeString } from './lib/utils';
+import { ROUTES, COURSES, GROUPS, Route } from './constants.ts';
+import { UserData, RaceResult, BalizaResult } from './types.ts';
+import { cn, normalizeString } from './lib/utils.ts';
 
 type AppStep = 'FORM' | 'ROUTE_SELECT' | 'RACE' | 'BORG' | 'RESULTS';
 
