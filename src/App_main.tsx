@@ -158,7 +158,21 @@ export default function App() {
         totalTime: formatTimeHMS(totalTime),
         borgScale,
         correctCount,
-        // Añadimos los tiempos parciales de forma legible para el Sheets
+        // Tiempos parciales individuales para columnas en Sheets
+        p1: formatTimeHMS(results[0]?.partialTime || 0),
+        p2: formatTimeHMS(results[1]?.partialTime || 0),
+        p3: formatTimeHMS(results[2]?.partialTime || 0),
+        p4: formatTimeHMS(results[3]?.partialTime || 0),
+        p5: formatTimeHMS(results[4]?.partialTime || 0),
+        p6: formatTimeHMS(results[5]?.partialTime || 0),
+        // Códigos introducidos individuales
+        c1: results[0]?.enteredCode || '',
+        c2: results[1]?.enteredCode || '',
+        c3: results[2]?.enteredCode || '',
+        c4: results[3]?.enteredCode || '',
+        c5: results[4]?.enteredCode || '',
+        c6: results[5]?.enteredCode || '',
+        // Resumen de tiempos parciales
         partialTimes: results.map((r, i) => `B${i+1}: ${formatTimeHMS(r.partialTime || 0)}`).join(', '),
         timestamp: new Date().toISOString()
       };
