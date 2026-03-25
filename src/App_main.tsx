@@ -205,12 +205,12 @@ export default function App() {
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(22);
       pdf.setTextColor(30, 30, 30);
-      pdf.text("Recorridos de Orientación en Huerta Otea", margin, y);
+      pdf.text("Recorridos de Orientación en Villar y Macías", margin, y);
       y += 8;
 
       pdf.setFontSize(12);
       pdf.setTextColor(5, 150, 105);
-      pdf.text("Departamento de E.F. IES Lucía de Medrano", margin, y);
+      pdf.text("Departamento de E.F. IES Villar y Macías", margin, y);
       y += 5;
       
       pdf.setFont("helvetica", "italic");
@@ -392,8 +392,8 @@ export default function App() {
             <MapIcon className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="font-black text-lg tracking-tight leading-none">Huerta Otea</h1>
-            <p className="text-[10px] font-bold text-stone-400 uppercase tracking-tighter">IES Lucía de Medrano</p>
+            <h1 className="font-black text-lg tracking-tight leading-none">Villar y Macías</h1>
+            <p className="text-[10px] font-bold text-stone-400 uppercase tracking-tighter">IES Villar y Macías</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -434,7 +434,7 @@ export default function App() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
                       <div className="text-left">
                         <p className="text-white/70 text-[10px] font-bold uppercase tracking-widest">Localización</p>
-                        <p className="text-white text-sm font-bold">Parque de Huerta Otea, Salamanca</p>
+                        <p className="text-white text-sm font-bold">IES Villar y Macías, Salamanca</p>
                       </div>
                     </div>
                   </div>
@@ -647,8 +647,8 @@ export default function App() {
             <div className="space-y-10">
               <div className="flex justify-between items-start border-b-2 border-stone-100 pb-8">
                 <div>
-                  <h1 className="text-3xl font-black text-stone-800 tracking-tight">Recorridos de Orientación en Huerta Otea</h1>
-                  <p className="text-emerald-600 font-bold text-sm uppercase tracking-wider mt-1">Departamento de E.F. IES Lucía de Medrano</p>
+                  <h1 className="text-3xl font-black text-stone-800 tracking-tight">Recorridos de Orientación en Villar y Macías</h1>
+                  <p className="text-emerald-600 font-bold text-sm uppercase tracking-wider mt-1">Departamento de E.F. IES Villar y Macías</p>
                   <p className="text-stone-400 text-[10px] italic mt-2">(App creada por Jose Carlos Tejedor)</p>
                 </div>
                 <div className="text-right">
