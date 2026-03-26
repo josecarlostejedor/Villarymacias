@@ -215,19 +215,22 @@ export default function App() {
         if (googleSheetsUrl) {
           const timeTotalStr = formatTimeHMS(totalTime);
           const payload = {
-            timestamp: new Date().toLocaleString(),
+            timestamp: new Date().toLocaleString('es-ES'),
             nombre: userData.firstName,
             apellidos: userData.lastName,
             curso: userData.course,
             grupo: userData.group,
             edad: userData.age,
             recorrido: selectedRoute.name,
-            puntuacion: correctCount,
+            puntuacion: score.toFixed(1),
             puntuacion_final: score.toFixed(1),
             tiempo_total: timeTotalStr,
             escala_borg: borgScale,
             aciertos: correctCount,
             resultado: `${correctCount} aciertos, ${selectedRoute.balizas.length - correctCount} fallos`,
+            // Extra keys for compatibility
+            tiempo: timeTotalStr,
+            borg: borgScale,
             aciertos_detalle: `${correctCount} aciertos, ${selectedRoute.balizas.length - correctCount} fallos`,
             aciertos_texto: `${correctCount} aciertos, ${selectedRoute.balizas.length - correctCount} fallos`,
             resumen: `${correctCount} aciertos, ${selectedRoute.balizas.length - correctCount} fallos`,
