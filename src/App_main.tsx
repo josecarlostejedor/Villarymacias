@@ -20,9 +20,9 @@ import {
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { jsPDF } from 'jspdf';
 
-import { ROUTES, COURSES, GROUPS, Route } from '@/src/constants_data';
-import { UserData, RaceResult, BalizaResult } from '@/src/types_data';
-import { cn, normalizeString } from '@/src/lib/utils_data';
+import { ROUTES, COURSES, GROUPS, Route } from './constants_data';
+import { UserData, RaceResult, BalizaResult } from './types_data';
+import { cn, normalizeString } from './lib/utils_data';
 
 type AppStep = 'FORM' | 'ROUTE_SELECT' | 'RACE' | 'BORG' | 'RESULTS';
 
@@ -222,7 +222,7 @@ export default function App() {
             grupo: userData.group,
             edad: userData.age,
             recorrido: selectedRoute.name,
-            puntuacion: score.toFixed(1),
+            puntuacion: correctCount,
             tiempo_total: timeTotalStr,
             escala_borg: borgScale,
             aciertos: correctCount,
