@@ -151,7 +151,6 @@ app.post("/api/results", async (req, res) => {
     
     if (googleSheetsUrl && googleSheetsUrl.startsWith("http")) {
       const totalBalizas = route ? route.balizas.length : 0;
-      const score10 = totalBalizas > 0 ? (correctBeacons / totalBalizas) * 10 : 0;
       
       const formatTimeHMS = (ms: number) => {
         const totalSeconds = Math.floor(ms / 1000);
@@ -169,7 +168,7 @@ app.post("/api/results", async (req, res) => {
         grupo: group || "N/A",
         recorrido: route?.name || `Recorrido ${routeId}`,
         tiempo: formatTimeHMS(totalTime),
-        puntuacion: score10.toFixed(1),
+        puntuacion: correctBeacons || 0,
         borg: borgScale || 0,
         resultado: `${correctBeacons} aciertos, ${totalBalizas - correctBeacons} fallos`,
         aciertos_detalle: `${correctBeacons} aciertos, ${totalBalizas - correctBeacons} fallos`,
