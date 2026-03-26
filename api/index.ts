@@ -162,25 +162,28 @@ app.post("/api/results", async (req, res) => {
       };
 
       const sheetData: any = {
+        timestamp: new Date().toLocaleString('es-ES'), // Use locale string for better date format
         nombre: name || "Sin nombre",
         apellidos: surname || "Sin apellidos",
         edad: age || 0,
         curso: course || "N/A",
         grupo: group || "N/A",
         recorrido: route?.name || `Recorrido ${routeId}`,
-        tiempo: formatTimeHMS(totalTime),
-        puntuacion: correctBeacons || 0,
+        puntuacion: score10.toFixed(1),
         puntuacion_final: score10.toFixed(1),
-        borg: borgScale || 0,
+        tiempo_total: formatTimeHMS(totalTime),
+        escala_borg: borgScale || 0,
+        aciertos: correctBeacons || 0,
         resultado: `${correctBeacons} aciertos, ${totalBalizas - correctBeacons} fallos`,
+        // Extra keys for compatibility
+        tiempo: formatTimeHMS(totalTime),
+        borg: borgScale || 0,
         aciertos_detalle: `${correctBeacons} aciertos, ${totalBalizas - correctBeacons} fallos`,
         aciertos_texto: `${correctBeacons} aciertos, ${totalBalizas - correctBeacons} fallos`,
         resumen: `${correctBeacons} aciertos, ${totalBalizas - correctBeacons} fallos`,
-        aciertos: correctBeacons || 0,
         hits_misses: `${correctBeacons} aciertos, ${totalBalizas - correctBeacons} fallos`,
         aciertos_num: correctBeacons || 0,
-        timestamp: new Date().toISOString(),
-        // English keys for consistency with client-side
+        // English keys
         firstName: name || "Sin nombre",
         lastName: surname || "Sin apellidos",
         age: age || 0,
@@ -188,7 +191,7 @@ app.post("/api/results", async (req, res) => {
         groupName: group || "N/A",
         routeName: route?.name || `Recorrido ${routeId}`,
         totalTime: formatTimeHMS(totalTime),
-        score: correctBeacons || 0,
+        score: score10.toFixed(1),
         correctCount: correctBeacons || 0,
         borgScale: borgScale || 0
       };
