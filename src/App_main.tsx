@@ -223,6 +223,7 @@ export default function App() {
             edad: userData.age,
             recorrido: selectedRoute.name,
             puntuacion: correctCount,
+            puntuacion_final: score.toFixed(1),
             tiempo_total: timeTotalStr,
             escala_borg: borgScale,
             aciertos: correctCount,
