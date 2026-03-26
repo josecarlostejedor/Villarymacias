@@ -162,7 +162,7 @@ app.post("/api/results", async (req, res) => {
       };
 
       const sheetData: any = {
-        timestamp: new Date().toLocaleString('es-ES'), // Use locale string for better date format
+        timestamp: new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' }), // Force Madrid timezone
         nombre: name || "Sin nombre",
         apellidos: surname || "Sin apellidos",
         edad: age || 0,
