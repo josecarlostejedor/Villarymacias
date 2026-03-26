@@ -170,6 +170,7 @@ app.post("/api/results", async (req, res) => {
         recorrido: route?.name || `Recorrido ${routeId}`,
         tiempo: formatTimeHMS(totalTime),
         puntuacion: correctBeacons || 0,
+        puntuacion_final: score10.toFixed(1),
         borg: borgScale || 0,
         resultado: `${correctBeacons} aciertos, ${totalBalizas - correctBeacons} fallos`,
         aciertos_detalle: `${correctBeacons} aciertos, ${totalBalizas - correctBeacons} fallos`,
