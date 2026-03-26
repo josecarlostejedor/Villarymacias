@@ -215,7 +215,7 @@ export default function App() {
         if (googleSheetsUrl) {
           const timeTotalStr = formatTimeHMS(totalTime);
           const payload = {
-            timestamp: new Date().toLocaleString('es-ES'),
+            timestamp: new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' }),
             nombre: userData.firstName,
             apellidos: userData.lastName,
             curso: userData.course,
